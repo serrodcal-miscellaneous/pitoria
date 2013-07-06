@@ -1,0 +1,95 @@
+package models;
+
+import java.util.Date;
+
+public class Habitant {
+
+	private String id; //calve primaria
+	private String name;
+	private String surname;
+	private Date dateBirthday;
+	private String address;
+	private Boolean isCandidate;
+
+	private Province province; //clave ajena
+	private PoliticalParty politicalParty; // clave ajena
+
+	public Habitant(){
+		this.id = new String();
+		this.name = new String();
+		this.surname = new String();
+		this.dateBirthday = new Date();
+		this.address = new String();
+		this.isCandidate = false;
+		this.province = new Province();
+		this.politicalParty = null; //Ojo con esto
+	}
+
+	public Habitant(String _id, String _name, String _surname, Date _dateBirthday, String _address, Boolean _isCandidate, Province _province, PoliticalParty _politicalParty){
+		this.id = _id;
+		this.name = _name;
+		this.surname = _surname;
+		this.dateBirthday = (Date) _dateBirthday.clone();
+		this.address = _address;
+		this.isCandidate = _isCandidate;
+		this.province = _province;
+		this.politicalParty = _politicalParty;
+	}
+
+	public String getid(){
+		return this.id;
+	}
+
+	public String getName(){
+		return this.name;
+	}
+
+	public String getSurname(){
+		return this.surname;
+	}
+
+	public Integer getCodeProvince(){
+		return this.province.getCode();
+	}
+
+	public Date getDateBirthday(){
+		return this.dateBirthday;
+	}
+
+	public Boolean isAdult(){
+		Date actualDate = new Date();
+		Integer actualYear = Integer.valueOf(actualDate.getYear()); //Devuelve el año tras quitarle 1900
+		Integer birthDateYear = Integer.valueOf(dateBirthday.getYear());
+		Integer age = (actualYear+1900) - birthDateYear;
+		return age>18;
+	}
+
+	public Boolean hasVoted(){
+		Boolean res = true;
+		if(this.politicalParty == null){
+			res = false;
+		}
+		return res;
+	}
+
+	public boolean equals(Object _o){
+		boolean res = false;
+		if(_o instanceof Habitant){
+			Habitant copia = (Habitant) _o;
+			res = this.getid().equals(copia.getid()); //cuidado con claves ajenas y isCandidate
+		}
+		return res;
+	}
+
+	public String toString(){
+		return this.getid();
+	}
+
+	public int compareTo(Habitant _h){
+		return this.getid().compareTo(_h.getid());
+	}
+
+	public void setVote(PoliticalParty elected) { //registra el voto
+		this.politicalParty = elected;
+	}
+}

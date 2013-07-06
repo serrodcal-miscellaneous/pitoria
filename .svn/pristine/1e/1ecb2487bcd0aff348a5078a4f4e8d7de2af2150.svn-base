@@ -1,0 +1,6 @@
+package models;
+
+public interface Provincia extends Comparable<Provincia>, Copiable<Provincia>{
+	Integer getCodigo();
+	String getNombre();
+}

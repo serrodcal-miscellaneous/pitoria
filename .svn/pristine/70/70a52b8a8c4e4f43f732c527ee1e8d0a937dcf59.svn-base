@@ -1,0 +1,51 @@
+package view;
+
+import java.util.List;
+
+import models.Habitant;
+import models.PoliticalParty;
+import models.Province;
+
+public class VoteUC {
+
+	private List<Habitant> habitants;
+	
+	public VoteUC(){
+		//Aqui cargar los datos del repositorio que sean necesarios inicialmente.
+	}
+	
+	private void makeUserCase(){
+		//Este metodo es la que va a realizar paso por paso el caso de uso, llamando
+		//a metodos de esta misma clase.
+	}
+	
+	private Boolean existsHabitantById(String _id){
+		Boolean res = false;
+		//Aqui comprobar que ese id existe en el repositorio
+		return res;
+	}
+	
+	private Boolean habitantCanVote(Habitant _habitant){
+		Boolean res = false;
+		//Aqui comprobar que el habitante tiene mas de 18 años
+		return res;
+	}
+	
+	private List<PoliticalParty> getAllPoliticalPartyByProvince(Province _province){
+		
+		return null;
+	}
+	
+	private void habtintanVotePoliticalParty(PoliticalParty _vote, Habitant _habitant){
+		//Tener en cuenta Null = no ha votado; PartidoPolitico vacio = voto en blanco.
+		//Comprobar que no ha votado previamente, mirando en el repositorio.
+		//Registrarle a ese habitante su voto y meterlo en el repositorio.
+	}
+	
+	private Boolean hasAlreadyVotedHabitant(String _id){
+		Boolean res = false;
+		//Mira en el repositorio si PoliticalPArty de habitante vale null y devolver true, sino false
+		return res;
+	}
+	
+}

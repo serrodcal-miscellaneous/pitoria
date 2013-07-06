@@ -1,0 +1,34 @@
+package repository;
+
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
+
+import models.Habitant;
+
+public class HabitantRepository {
+
+	//Necesitamos saber dni, edad (es mayor de edad?) y provincia
+	
+	private Map<String, Habitant> habitantMap;
+	
+	public HabitantRepository(){
+		habitantMap = new HashMap<String, Habitant>();
+	}
+	
+	
+	public Habitant getHabitant(String id){
+		return habitantMap.get(id);
+	}
+	
+	public Collection<Habitant> getPopulation(){
+		return habitantMap.values();
+	}
+	
+	public Integer getPopulationSize(){
+		Collection<Habitant> population = this.getPopulation();
+		
+		return population.size();
+	}
+	
+}

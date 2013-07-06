@@ -1,0 +1,69 @@
+package models;
+
+import java.util.Date;
+
+public class HabitanteImpl implements Habitante{
+	
+	private String dni; //calve primaria
+	private String nombre;
+	private String apellidos;
+	private Date fechaNacimiento;
+	private String direccion;
+	private Boolean esCandidato;
+	
+	private String codigo; //clave ajena
+	private String oid_PartidoPolitico; // clave ajena
+	
+	public HabitanteImpl(){
+		this.dni = new String();
+		this.nombre = new String();
+		this.apellidos = new String();
+		this.fechaNacimiento = new Date();
+		this.direccion = new String();
+		this.esCandidato = false;
+		this.codigo = new String();
+		this.oid_PartidoPolitico = new String();
+	}
+	
+	public HabitanteImpl(String _dni, String _nombre, String _apellidos, Date _fechaNacimiento, String _direccion, Boolean _esCandidato, String _codigo, String _oid_PartidoPolitico){
+		this.dni = _dni;
+		this.nombre = _nombre;
+		this.apellidos = _apellidos;
+		this.fechaNacimiento = (Date) _fechaNacimiento.clone();
+		this.direccion = _direccion;
+		this.esCandidato = _esCandidato;
+		this.codigo = _codigo;
+		this.oid_PartidoPolitico = _oid_PartidoPolitico;
+	}
+	
+	public String getDni(){
+		return this.dni;
+	}
+	
+	public boolean equals(Object _o){
+		boolean res = false;
+		if(_o instanceof Habitante){
+			Habitante copia = (Habitante) _o;
+			res = this.getDni().equals(copia.getDni()); //cuidado con claves ajenas y esCandidato
+		}
+		return res;
+	}
+	
+	public Habitante clone(){
+		Habitante copia = null;
+		try{
+			copia = (Habitante)super.clone();
+		}catch(CloneNotSupportedException e){
+			e.printStackTrace();
+		}
+		return copia;
+	}
+	
+	public String toString(){
+		return this.getDni();
+	}
+	
+	public int compareTo(Habitante _h){
+		return this.getDni().compareTo(_h.getDni());
+	}
+}

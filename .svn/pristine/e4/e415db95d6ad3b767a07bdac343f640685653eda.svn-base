@@ -1,0 +1,5 @@
+package models;
+
+public interface Habitante extends Copiable<Habitante>, Comparable<Habitante>{
+	public String getDni();
+}

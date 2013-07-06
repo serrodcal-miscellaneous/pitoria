@@ -1,0 +1,71 @@
+package repository;
+
+import java.util.Date;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+
+import models.Habitant;
+import models.PoliticalParty;
+import models.Province;
+
+public class HabitantResource {
+	
+	private Map<String, Habitant> habitantMap = new HashMap<String, Habitant>();
+	
+	public HabitantResource(){
+		this.initilize();
+	}
+	
+	@SuppressWarnings("deprecation")
+	private void initilize(){
+		String prov1 = new String("Sevilla");
+		String prov2 = new String("Badajoz");
+		Province p1 = new Province(41, prov1);
+		Province p2 = new Province(06, prov2);
+		
+		Habitant h1 = new Habitant("1","Pedro", "Romero Ramos", new Date(1990,3,23), "Reina Mercedes", false, p1,null);
+		Habitant h2 = new Habitant("2","Javier", "Pazos Delgado", new Date(1989,6,16), "Picassa", false, p1,null);
+		Habitant h3 = new Habitant("3","Carmen", "Servan Jimenez", new Date(1993,11,25), "Arriba", false, p1,null);
+		Habitant h4 = new Habitant("4","Sebastian", "Conil Monge", new Date(1992,12,01), "Paez de rivera", true, p1,null);
+		Habitant h5 = new Habitant("5","David", "zelaznog adleb", new Date(1992,5,22), "Covarsi", true, p1,null);
+		Habitant h6 = new Habitant("6","Sergio", "Peludo Caballero", new Date(1986,8,22), "Covarsi", true, p1,null);
+		Habitant h7 = new Habitant("7","Juan Manuel", "Peloz Zopas", new Date(1992,4,17), "PineMountain", true, p1,null);
+		Habitant h8 = new Habitant("8","Fernando", "Fernandez Fernandez", new Date(1989,8,29), "TwoSisters", false, p1,null);
+		
+		Habitant h9 = new Habitant("9","Blanca", "Nieto Abuelo", new Date(2000,5,10), "Emerita", false, p2,null);
+		Habitant h10 = new Habitant("10","Esmeralda", "Caro Brillante", new Date(2008,7,14), "Gelves", false, p2,null);
+		Habitant h11 = new Habitant("11","Ramon", "Garcia Corchuelo", new Date(2000,5,10), "The Haba", true, p2,null);
+		Habitant h12 = new Habitant("12","Clara", "Aguamarina DelValle", new Date(1977,5,12), "Hispalis", false, p2,null);
+		Habitant h13 = new Habitant("13","Alfredo", "Primo Rivera", new Date(1982,5,12), "Emerita", false, p2,null);
+		Habitant h14 = new Habitant("14","Franciso", "Garcia Garcia", new Date(1955,2,20), "DonVinito", true, p2,null);
+		Habitant h15 = new Habitant("15","Benjamin", "madriguez noses", new Date(2011,2,10), "Emerita", false, p2,null);
+		
+		habitantMap.put(h1.getid(), h1);
+		habitantMap.put(h2.getid(), h2);
+		habitantMap.put(h3.getid(), h3);
+		habitantMap.put(h4.getid(), h4);
+		habitantMap.put(h5.getid(), h5);
+		habitantMap.put(h6.getid(), h6);
+		habitantMap.put(h7.getid(), h7);
+		habitantMap.put(h8.getid(), h8);
+		habitantMap.put(h9.getid(), h9);
+		habitantMap.put(h10.getid(), h10);
+		habitantMap.put(h11.getid(), h11);
+		habitantMap.put(h12.getid(), h12);
+		habitantMap.put(h13.getid(), h13);
+		habitantMap.put(h14.getid(), h14);
+		habitantMap.put(h15.getid(), h15);
+		
+	}
+	
+	public List<Habitant> getAllHabitants(){
+		return new LinkedList<Habitant>(this.habitantMap.values());
+	}
+
+	public Boolean habitantHasVoted(String _id) {
+		return this.habitantMap.get(_id).hasVoted();
+	}
+	
+}

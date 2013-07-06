@@ -1,0 +1,19 @@
+package repository;
+
+import java.util.List;
+
+import models.PoliticalParty;
+
+public class ElectionRepository {
+
+	private ElectionResource electionResource = new ElectionResource();
+	
+	public ElectionRepository(){
+		
+	}
+
+	public List<PoliticalParty> getAllPoliticalPartyByProvince(Integer _codeProvince) {
+		return this.electionResource.getAllPoliticalPartyByProvince(_codeProvince);
+	}
+	
+}

@@ -1,0 +1,11 @@
+package repository;
+
+public class ElectionRepository {
+
+	private ElectionResource electionResource = new ElectionResource();
+	
+	public ElectionRepository(){
+		
+	}
+	
+}

@@ -1,0 +1,42 @@
+package repository;
+
+import java.util.List;
+
+import models.Habitant;
+
+public class HabitantRepository {
+    
+    private HabitantResource habitantResource = new HabitantResource();
+    
+    public HabitantRepository() {
+        
+    }
+    
+//    public Habitant getHabitant(String id) {
+//        return habitantMap.get(id);
+//    }
+//    
+    public List<Habitant> getAllHabitants() {
+        return this.habitantResource.getAllHabitants();
+    }
+//    
+//    public Integer getPopulationSize() {
+//        Collection<Habitant> population = this.getPopulation();
+//        
+//        return population.size();
+//    }
+
+    public Boolean habitantHasVoted(String id) {
+        return this.habitantResource.habitantHasVoted(id);
+    }
+
+    public void votingRecord(Habitant habitant) {
+        this.habitantResource.votingRecord(habitant);
+    }
+
+    public Boolean existsId(String id) {
+        Boolean res = this.habitantResource.containsId(id);
+        return res;
+    }
+    
+}

@@ -1,0 +1,17 @@
+package repository;
+
+import java.util.Set;
+
+import models.Province;
+
+public class ProvinceRepository {
+	private ProvinceResource resourse = new ProvinceResource();
+	
+	public ProvinceRepository(){
+		this.resourse = new ProvinceResource();
+	}
+	
+	public Set<Province> getAllProvinces(){
+		return this.resourse.values();		
+	}
+}

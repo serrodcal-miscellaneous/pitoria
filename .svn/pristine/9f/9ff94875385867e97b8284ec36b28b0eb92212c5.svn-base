@@ -1,0 +1,20 @@
+package models;
+
+public class EleccionImpl implements Eleccion{
+
+	private String dni;
+	private String codigo;
+	private String oid_PartidoPolitico;
+	
+	public EleccionImpl(){
+		this.dni = new String();
+		this.codigo = new String();
+		this.oid_PartidoPolitico = new String();
+	}
+	
+	public EleccionImpl(String _dni, String _codigo, String _oid_PartidoPolitico){
+		this.dni = _dni;
+		this.codigo = _codigo;
+		this.oid_PartidoPolitico = _oid_PartidoPolitico;
+	}
+}

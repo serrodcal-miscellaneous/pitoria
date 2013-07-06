@@ -1,0 +1,14 @@
+package repository;
+
+public class ProvinceRepository {
+    private ProvinceResource provinceResource = new ProvinceResource();
+    
+    public ProvinceRepository() {
+        
+    }
+    
+//    public Set<Province> getAllProvinces(){
+//        return this.resourse.values();        
+//    }
+    
+}

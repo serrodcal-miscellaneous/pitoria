@@ -1,0 +1,74 @@
+package repository;
+
+import java.util.Date;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+import models.Election;
+import models.Habitant;
+import models.PoliticalParty;
+import models.Province;
+
+public class ElectionResource {
+
+	Map<Integer, Election> electionMap = new HashMap<Integer, Election>();
+	
+	public ElectionResource(){
+		this.initilize();
+	}
+	
+	private void initilize(){
+		//Meter codigo que inicialice el mapa
+		String prov1 = new String("Sevilla");
+		String prov2 = new String("Badajoz");
+		Province p1 = new Province(41, prov1);
+		Province p2 = new Province(6, prov2);
+		
+		PoliticalParty psoe = new PoliticalParty("PSOE", 1979, "Madrid");
+		PoliticalParty pp = new PoliticalParty("PP", 1977, "Madrid");
+		PoliticalParty iu = new PoliticalParty("IU", 1986, "Madrid");
+		PoliticalParty upyd = new PoliticalParty("UPYD", 2007, "Madrid");
+		
+		/*
+		//Candidatos p1
+		Habitant h4 = new Habitant("4","Sebastian", "Conil Monge", new Date(1992,12,01), "Paez de rivera", true, p1,psoe);
+		Habitant h5 = new Habitant("5","David", "zelaznog adleb", new Date(1992,5,22), "Covarsi", true, p1,upyd);
+		Habitant h6 = new Habitant("6","Sergio", "Peludo Caballero", new Date(1986,8,22), "Covarsi", true, p1,pp);
+		Habitant h7 = new Habitant("7","Juan Manuel", "Peloz Zopas", new Date(1992,4,17), "PineMountain", true, p1,iu);
+		
+		//Candidatos p2
+		Habitant h11 = new Habitant("11","Ramon", "Garcia Corchuelo", new Date(2000,5,10), "The Haba", true, p2,psoe);
+		Habitant h14 = new Habitant("14","Franciso", "Garcia Garcia", new Date(1955,2,20), "DonVinito", true, p2,pp);
+		*/
+		
+//		this.electionMap.put("1", new Election("1", p1, null));
+//		this.electionMap.put("2", new Election("2", p1, psoe));
+//		this.electionMap.put("3", new Election("3", p1, null));
+//		this.electionMap.put("4", new Election("4", p1, psoe));
+//		this.electionMap.put("5", new Election("5", p1, upyd));
+//		this.electionMap.put("6", new Election("6", p1, pp));
+//		this.electionMap.put("7", new Election("7", p1, iu));
+//		this.electionMap.put("8", new Election("8", p1, psoe));
+//		this.electionMap.put("9", new Election("9", p2, pp));
+//		this.electionMap.put("10", new Election("10", p2, null));
+//		this.electionMap.put("11", new Election("11", p2, psoe));
+//		this.electionMap.put("12", new Election("12", p2, pp));
+//		this.electionMap.put("13", new Election("13", p2, null));
+//		this.electionMap.put("14", new Election("14", p2, pp));
+//		this.electionMap.put("15", new Election("15", p2, pp));
+	}
+
+	public Set<PoliticalParty> getAllPoliticalPartyByProvince(Integer _codeProvince) {
+		Set<PoliticalParty> politicalParties = new HashSet<PoliticalParty>();
+		for(Election election: this.electionMap.values()){
+			if(election.getCodeProvince().equals(_codeProvince)){
+				politicalParties.add(election.getPoliticalParty());
+			}
+		}
+		return politicalParties;
+	}
+	
+}

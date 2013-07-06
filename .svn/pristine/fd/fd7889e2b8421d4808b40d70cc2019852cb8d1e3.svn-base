@@ -1,0 +1,19 @@
+package view;
+
+import java.util.SortedMap;
+import models.PoliticalParty;;
+
+public class DHontMethod implements CountingMethod{
+
+	private Integer porcentajeMinimo = 3;
+	
+	public DHontMethod() {
+		
+	}
+	
+	public static SortedMap<PoliticalParty, Integer> doResult(SortedMap<PoliticalParty, Integer> politicalPartiesNumVotes){
+		//Calcular resultados
+		return null;
+	}
+	
+}

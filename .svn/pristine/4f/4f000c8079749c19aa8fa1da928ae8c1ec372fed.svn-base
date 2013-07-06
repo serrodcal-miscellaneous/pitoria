@@ -1,0 +1,67 @@
+package view;
+
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Set;
+import java.util.SortedSet;
+import java.util.TreeSet;
+
+import models.Habitant;
+import models.PoliticalParty;
+import models.Province;
+
+import repository.Repository;
+import utils.Pair;
+
+public class ResultElectionUC {
+
+	Repository repository;
+	List<Province> provinces;
+	
+	public ResultElectionUC(Repository repository) {
+		this.repository = repository;
+		this.provinces = repository.provinceRepository.getAllProvinces();
+		makeUserCase();
+	}
+
+	private void makeUserCase() {
+		for (Province province : this.provinces){
+			List<Habitant> habitants = this.getAllHabitantsByProvince(province.getCode());
+			List<Habitant> filterHabitants = this.CanVoteFilter(habitants); 
+			//Se filtran para eliminar lo que no pueden votar
+			//Ya tenemos todos los votantes de esa provincia
+			Integer numTotalVoters = filterHabitants.size();
+			Integer validVotes = this.getValidVotes(filterHabitants);
+			Set<PoliticalParty> politicalPartiesProvince = this.repository.electionRepository.getAllPoliticalPartyByProvince(province.getCode());
+			SortedSet<Pair<PoliticalParty, Integer>> politicalPartiesNumVotes = new TreeSet<Pair<PoliticalParty, Integer>>();
+			//Ahora llamar a MethodHont
+			//devolver el resultado
+			SortedSet<Pair<PoliticalParty, Integer>> politicalPartiesResults; //Llamar al metodo que necesitemos
+		}
+	}
+
+	private Integer getValidVotes(List<Habitant> filterHabitants) {
+		Integer res = Integer.valueOf(0);
+		for(Habitant habitant : filterHabitants){
+			if(habitant.isValidVotes()){
+				res ++;
+			}
+		}
+		return res;
+	}
+
+	private List<Habitant> CanVoteFilter(List<Habitant> habitants) {
+		List<Habitant> filter = new LinkedList<Habitant>();
+		for (Habitant habitant : habitants){
+			if (habitant.isAdult()) {
+				filter.add(habitant);
+			}
+		}
+		return filter;
+	}
+
+	private List<Habitant> getAllHabitantsByProvince(Integer code) {
+		return this.repository.habitantRepository.getAllHabitantsByProvince(code);
+	}
+	
+}

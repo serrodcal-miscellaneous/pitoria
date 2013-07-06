@@ -1,0 +1,30 @@
+package view;
+
+import org.springframework.context.support.AbstractApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+import repository.Repository;
+
+public class Main {
+
+    public static void main(String[] args) {
+    	//Declaracion de context necesario para spring
+//    	final AbstractApplicationContext context = new ClassPathXmlApplicationContext(new String[] { "spring.xml" });
+//    	context.registerShutdownHook();
+    	
+//  	
+//    	Repository repository = (Repository) context.getBean("repository");
+//    	control.irMain();
+    	
+        System.out.println("Bienvenido a la Republica de Pitoria.");
+        System.out.println("La aplicacion va a ejecutar de forma automatica las elecciones.");
+        Repository repository = new Repository();
+        System.out.println("--------------------------------------------------");
+        System.out.println("----------Caso de uso 1: Votaciones.----------");
+        VoteUC useCase1 = new VoteUC(repository);
+        repository = useCase1.endUserCase();
+        System.out.println("----------Caso de uso 2: Calculo de resultados.----------");
+        //Caso de uso dos
+    }
+    
+}

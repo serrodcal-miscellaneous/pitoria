@@ -1,0 +1,24 @@
+package repository;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import models.*;
+
+public class ProvinceResource {
+
+	private Map<String, Province> provinceMap = new HashMap<String, Province>();
+	
+	public ProvinceResource(){
+		
+	}
+	
+	private void initilize(){
+		//Meter codigo que inicialice el mapa
+	}
+	
+	public Boolean containsKey(String _key){
+		return this.provinceMap.containsKey(_key);
+	}
+	
+}

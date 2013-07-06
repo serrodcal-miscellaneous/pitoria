@@ -1,0 +1,12 @@
+package view;
+
+public class IDHontMethod implements CountingMethod{
+
+	private Integer porcentajeMinimo = 3;
+	private Integer diputadosPorProvincia = 4;
+	
+	public IDHontMethod() {
+		
+	}
+	
+}

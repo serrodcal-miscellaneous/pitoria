@@ -1,0 +1,47 @@
+package view;
+
+import java.util.LinkedList;
+import java.util.List;
+
+import models.Habitant;
+import models.Province;
+
+import repository.Repository;
+
+public class ResultElectionUC {
+
+	Repository repository;
+	List<Province> provinces;
+	
+	public ResultElectionUC(Repository repository) {
+		this.repository = repository;
+		this.provinces = repository.provinceRepository.getAllProvinces();
+		makeUserCase();
+	}
+
+	private void makeUserCase() {
+		for (Province province : this.provinces){
+			List<Habitant> habitants = this.getAllHabitantsByProvince(province.getCode());
+			List<Habitant> filterHabitants = this.CanVoteFilter(habitants); 
+			//Se filtran para eliminar lo que no pueden votar
+			//Ya tenemos todos los votantes de esa provincia
+			Integer numTotalVoters = filterHabitants.size();
+			
+		}
+	}
+
+	private List<Habitant> CanVoteFilter(List<Habitant> habitants) {
+		List<Habitant> filter = new LinkedList<Habitant>();
+		for (Habitant habitant : habitants){
+			if (habitant.isAdult()) {
+				filter.add(habitant);
+			}
+		}
+		return filter;
+	}
+
+	private List<Habitant> getAllHabitantsByProvince(Integer code) {
+		return this.repository.habitantRepository.getAllHabitantsByProvince(code);
+	}
+	
+}

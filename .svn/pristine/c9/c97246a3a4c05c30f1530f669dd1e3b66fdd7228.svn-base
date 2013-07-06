@@ -1,0 +1,100 @@
+package view;
+
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.SortedMap;
+import java.util.SortedSet;
+import java.util.TreeMap;
+import java.util.TreeSet;
+
+import models.Habitant;
+import models.PoliticalParty;
+import models.Province;
+
+import repository.Repository;
+
+public class ResultElectionUC {
+
+	Repository repository;
+	List<Province> provinces;
+	
+	public ResultElectionUC(Repository repository) {
+		this.repository = repository;
+		this.provinces = repository.provinceRepository.getAllProvinces();
+		makeUserCase();
+	}
+
+	private void makeUserCase() {
+		for (Province province : this.provinces) {
+			List<Habitant> habitants = this.getAllHabitantsByProvince(province.getCode());
+			List<Habitant> filterHabitants = this.canVoteFilterAndVote(habitants); 
+			//Se filtran para eliminar los que no pueden votar
+			//Ya tenemos todos los votantes de esa provincia
+			Integer numTotalVoters = canVoteFilter(habitants).size();
+//			Integer validVotes = this.getValidVotes(filterHabitants);
+			Integer validVotes = filterHabitants.size();
+			Set<PoliticalParty> politicalPartiesProvince = this.repository.electionRepository.getAllPoliticalPartyByProvince(province.getCode());
+			//Ahora hay que traerse los votos por partidos en dicha provincia y ordenarlos por votos
+			Map<PoliticalParty, Integer> politicalPartiesNumVotes = this.getVotesForPoliticalParty(filterHabitants, politicalPartiesProvince);
+			//Ahora llamar a MethodHont
+			//devolver el resultado
+			DHontMethod method = new DHontMethod();
+			Map<PoliticalParty, Integer> politicalPartiesResults = method.doResult(politicalPartiesNumVotes, province.getRepresentatives()); //Llamar al metodo que necesitemos
+			//TODO: Mostrar politicalPartiesResults a poder ser ordenados
+		}
+	}
+
+	private Map<PoliticalParty, Integer> getVotesForPoliticalParty(
+			List<Habitant> filterHabitants, Set<PoliticalParty> politicalPartiesProvince) {
+		Map<PoliticalParty, Integer> politicalPartiesNumVotes = new HashMap<PoliticalParty, Integer>();
+		for (PoliticalParty politicalParty : politicalPartiesProvince) {
+			Integer cont = Integer.valueOf(0);
+			for (Habitant habitant : filterHabitants) {
+				if (habitant.getNamePoliticalParty().equals(politicalParty.getName())) {
+					cont ++;
+				}
+			}
+			politicalPartiesNumVotes.put(politicalParty, cont);
+		}
+		return politicalPartiesNumVotes;
+	}
+
+//	private Integer getValidVotes(List<Habitant> filterHabitants) {
+//		Integer res = Integer.valueOf(0);
+//		for(Habitant habitant : filterHabitants){
+//			if(habitant.isValidVotes()){
+//				res ++;
+//			}
+//		}
+//		return res;
+//	}
+
+	private List<Habitant> canVoteFilterAndVote(List<Habitant> habitants) {
+		List<Habitant> filter = new LinkedList<Habitant>();
+		for (Habitant habitant : habitants){
+			if (habitant.isAdult() && habitant.isValidVotes()) {
+				filter.add(habitant);
+			}
+		}
+		return filter;
+	}
+	
+	private List<Habitant> canVoteFilter(List<Habitant> habitants) {
+		List<Habitant> filter = new LinkedList<Habitant>();
+		for (Habitant habitant : habitants){
+			if (habitant.isAdult()) {
+				filter.add(habitant);
+			}
+		}
+		return filter;
+	}
+
+	private List<Habitant> getAllHabitantsByProvince(Integer code) {
+		return this.repository.habitantRepository.getAllHabitantsByProvince(code);
+	}
+	
+}

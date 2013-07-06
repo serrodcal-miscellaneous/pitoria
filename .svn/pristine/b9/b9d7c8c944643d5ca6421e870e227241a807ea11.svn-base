@@ -1,0 +1,57 @@
+package utils;
+
+@SuppressWarnings("hiding")
+public class Pair<PoliticalParty,Integer> {
+	
+	private PoliticalParty a1;
+	private Integer a2;
+	
+	public Pair(PoliticalParty p1, Integer p2){
+		a1=p1;
+		a2=p2;
+	}
+	
+	public PoliticalParty p1(){
+		return a1;
+	}
+	public Integer p2(){
+		return a2;
+	}
+	public void setP1(PoliticalParty b1){
+		a1 = b1;
+	}
+	
+    public void setP2(Integer b2){
+		a2 = b2;
+	}
+    
+	public boolean equals(Object o){
+		boolean r = false;
+		if(o instanceof Pair){
+			Pair<?,?> o1 = (Pair<?,?>)o;
+			r = p1().equals(o1.p1());
+		}
+		return r;
+	} 
+	
+	public int hashCode(){
+		return p1().hashCode()*31+p2().hashCode();
+	}
+	
+	public String toString(){
+		return "("+p1()+","+p2()+")";
+	}
+
+	public int compareTo(Pair<PoliticalParty, Integer> p) {
+		int i1 = (java.lang.Integer) this.p2();
+		int i2 = (java.lang.Integer) p.p2();
+		int res = 0;
+		if(i1 > i2){
+			res = 1;
+		}else{
+			res =-1;
+		}
+		return res;
+	} 
+
+}

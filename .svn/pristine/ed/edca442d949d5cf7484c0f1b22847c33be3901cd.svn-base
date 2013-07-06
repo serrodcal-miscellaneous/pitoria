@@ -1,0 +1,62 @@
+package models;
+
+public class ProvinciaImpl implements Provincia{
+	//Atributos
+	private Integer codigo;
+	private String nombre;
+	
+	//Constructor
+	public ProvinciaImpl (Integer codigo, String nombre){
+		this.codigo=codigo;
+		this.nombre=nombre;
+	}
+	
+	//Metodos consultores y modificadores
+	public Integer getCodigo(){
+		return codigo;
+	}
+	
+	public String getNombre(){
+		return nombre;
+	}
+	
+	//Metodos de Object
+	public Provincia clone(){
+		Provincia copia = null;
+		try{
+			copia = (Provincia)super.clone();
+		}
+		catch(CloneNotSupportedException e){
+			e.printStackTrace();
+		}
+		return copia;
+	}
+	
+	public int compareTo(Provincia o){
+		int res = 0;
+		res = this.getCodigo().compareTo(o.getCodigo());
+		if (res == 0){
+			res = this.getNombre().compareTo(o.getNombre());
+		}
+		
+		return res;
+	}
+	
+	public boolean equals(Object o){
+		boolean res = false;
+		if(o instanceof Provincia){
+			Provincia p = (Provincia)o;
+			res = this.getCodigo().equals(p.getCodigo());
+			if (res == true){
+				res = this.getNombre().equals(p.getCodigo());
+			}
+		}
+		return res;
+	}
+	
+	public String toString(){
+		return this.getNombre()+"--"+this.getCodigo();
+	}
+	
+	
+}

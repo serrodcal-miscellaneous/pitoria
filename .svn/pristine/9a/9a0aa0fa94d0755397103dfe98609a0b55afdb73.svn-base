@@ -1,0 +1,11 @@
+package view;
+
+public class DHontMethod implements CountingMethod{
+
+	private Integer porcentajeMinimo = 3;
+	
+	public DHontMethod() {
+		
+	}
+	
+}

@@ -1,0 +1,54 @@
+package models;
+
+public class Province {
+	
+	private Integer code;
+	private String name;
+	
+	public Province () {
+		this.code = Integer.valueOf(0);
+		this.name = "";
+	}
+	
+	public Province (Integer code, String name) {
+		this.code = code;
+		this.name = name;
+	}
+	
+	//Metodos consultores y modificadores
+	public Integer getCode() {
+		return code;
+	}
+	
+	public String getName() {
+		return name;
+	}
+	
+	public int compareTo(Province o) {
+		int res = 0;
+		res = this.getCode().compareTo(o.getCode());
+		if (res == 0) {
+			res = this.getName().compareTo(o.getName());
+		}
+		
+		return res;
+	}
+	
+	public boolean equals(Object o) {
+		boolean res = false;
+		if(o instanceof Province) {
+			Province p = (Province) o;
+			res = this.getCode().equals(p.getCode());
+			if (res == true) {
+				res = this.getName().equals(p.getName());
+			}
+		}
+		return res;
+	}
+	
+	public String toString() {
+		return this.getName()+"--"+this.getCode();
+	}
+	
+	
+}

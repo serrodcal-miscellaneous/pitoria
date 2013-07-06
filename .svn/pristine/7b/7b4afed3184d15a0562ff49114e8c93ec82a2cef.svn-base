@@ -1,0 +1,59 @@
+package models;
+
+import java.util.Date;
+
+public class Habitant{
+	
+	private String id; //calve primaria
+	private String name;
+	private String surname;
+	private Date dateBirthday;
+	private String address;
+	private Boolean isCandidate;
+	
+	private Province code; //clave ajena
+	private PoliticalParty oid_PoliticalParty; // clave ajena
+	
+	public Habitant(){
+		this.id = new String();
+		this.name = new String();
+		this.surname = new String();
+		this.dateBirthday = new Date();
+		this.address = new String();
+		this.isCandidate = false;
+		this.code = new Province();
+		this.oid_PoliticalParty = new PoliticalParty();
+	}
+	
+	public Habitant(String _id, String _name, String _surname, Date _dateBirthday, String _address, Boolean _isCandidate, Province _code, PoliticalParty _oid_PoliticalParty){
+		this.id = _id;
+		this.name = _name;
+		this.surname = _surname;
+		this.dateBirthday = (Date) _dateBirthday.clone();
+		this.address = _address;
+		this.isCandidate = _isCandidate;
+		this.code = _code;
+		this.oid_PoliticalParty = _oid_PoliticalParty;
+	}
+	
+	public String getid(){
+		return this.id;
+	}
+	
+	public boolean equals(Object _o){
+		boolean res = false;
+		if(_o instanceof Habitant){
+			Habitant copia = (Habitant) _o;
+			res = this.getid().equals(copia.getid()); //cuidado con claves ajenas y isCandidate
+		}
+		return res;
+	}
+	
+	public String toString(){
+		return this.getid();
+	}
+	
+	public int compareTo(Habitant _h){
+		return this.getid().compareTo(_h.getid());
+	}
+}

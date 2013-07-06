@@ -1,0 +1,14 @@
+package models;
+
+public interface PartidoPolitico extends Copiable<PartidoPolitico>, Comparable<PartidoPolitico>{
+	//metodos get
+    public String getNombre();
+    public Integer getAnyoFundacion();
+    //public String getSede();
+    
+    //metodos set
+    public void setNombre(String nombre);
+    public void setAnyoFundacion(Integer anyoFundacion);
+    //public void setSede(String sede);
+    
+}

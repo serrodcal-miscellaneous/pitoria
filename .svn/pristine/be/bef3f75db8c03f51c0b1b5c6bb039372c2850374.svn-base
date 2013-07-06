@@ -1,0 +1,24 @@
+package view;
+
+import java.util.List;
+
+import models.Province;
+
+import repository.Repository;
+
+public class ResultElectionUC {
+
+	Repository repository;
+	List<Province> provinces;
+	
+	public ResultElectionUC(Repository repository) {
+		this.repository = repository;
+		this.provinces = repository.provinceRepository.getAllProvinces();
+		makeUserCase();
+	}
+
+	private void makeUserCase() {
+		
+	}
+	
+}

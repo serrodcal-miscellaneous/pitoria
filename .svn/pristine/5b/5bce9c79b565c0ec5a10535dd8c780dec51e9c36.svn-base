@@ -1,0 +1,11 @@
+package repository;
+
+public class PoliticalPartyRepository {
+
+	PoliticalPartyResource politicalPartyResource = new PoliticalPartyResource();
+	
+	public PoliticalPartyRepository(){
+		
+	}
+	
+}

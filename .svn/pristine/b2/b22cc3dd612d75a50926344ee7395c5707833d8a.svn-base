@@ -1,0 +1,94 @@
+package models;
+
+public class PartidoPoliticoImpl implements PartidoPolitico{
+    
+	//atributos
+	
+	private String nombre;
+    private Integer anyoFundacion;
+    private String sede;
+    private String oid_PartidoPolitico;
+    
+    //constructor por defecto
+    
+    public PartidoPoliticoImpl(){
+    	this.nombre = new String();
+    	this.anyoFundacion = new Integer(0);
+    	this.sede = new String();
+    	this.oid_PartidoPolitico = new String();
+    }
+    
+    //constructor que recibe los 3 parametros
+    
+    public PartidoPoliticoImpl(String nombre, Integer anyoFundacion, String sede, String oid_PartidoPolitico){
+    	this.nombre = nombre;
+    	this.anyoFundacion = anyoFundacion;
+    	this.sede = sede;
+    	this.oid_PartidoPolitico = oid_PartidoPolitico;
+    }
+    
+    //metodos get
+    
+	public String getNombre() {
+		return nombre;
+	}
+	
+	public Integer getAnyoFundacion() {
+		return anyoFundacion;
+	}
+	
+	/*public String getSede() {
+		return sede;
+	}*/
+	
+	//metodos set
+	
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+
+	public void setAnyoFundacion(Integer anyoFundacion) {
+		this.anyoFundacion = anyoFundacion;
+	}
+
+	/*public void setSede(String sede) {
+		this.sede = sede;
+	}*/
+
+	//redefinicion de metodos de object
+	
+	public boolean equals(Object o){
+		boolean res = false;
+		if(o instanceof PartidoPolitico){
+		    PartidoPolitico p = (PartidoPolitico) o;
+	        res = this.getNombre().equals(p.getNombre()) && this.getAnyoFundacion().equals(p.getAnyoFundacion());
+		}
+		return res;
+	}
+	
+	public PartidoPolitico clone(){
+		PartidoPolitico copia = null;
+		try{
+			copia = (PartidoPolitico) super.clone();
+		}catch(CloneNotSupportedException e){
+			e.printStackTrace();
+		}
+		return copia;
+	}
+	
+	public String toString(){
+		String s = "";
+		s = this.getNombre() + ", (" + this.getAnyoFundacion() + ")";
+		return s;
+	}
+	
+	public int compareTo(PartidoPolitico p){
+		int cmp = 0;
+		cmp = this.getNombre().compareTo(p.getNombre());
+		if(cmp==0){
+			cmp = this.getAnyoFundacion().compareTo(p.getAnyoFundacion());
+		}
+		return cmp;
+	}
+	//hace falta el hashCode?
+}

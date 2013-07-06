@@ -1,0 +1,107 @@
+package view;
+
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Set;
+
+import repository.Repository;
+
+import models.Habitant;
+import models.PoliticalParty;
+
+public class VoteUC {
+
+    private Repository repository;
+    private List<Habitant> habitants;
+    
+    public VoteUC(Repository repository) {
+        this.repository = repository;
+        //Aqui cargar los datos del repositorio que sean necesarios inicialmente.
+        this.habitants = repository.habitantRepository.getAllHabitants();
+        //Una vez hecho llamar al metodo makeUserCase() que ejecuta el caso de uso
+        makeUserCase();
+    }
+    
+    public Repository endUserCase() {
+        //devolvemos el repositorio modif icado para usarlo en el otro caso de uso
+        return this.repository;
+    }
+    
+    private void makeUserCase() {
+        //Este metodo es la que va a realizar paso por paso el caso de uso, llamando
+        //a metodos de esta misma clase.
+        
+        for (Habitant habitant:this.habitants) {
+            StringBuffer mensaje = new StringBuffer(); mensaje.append("El votante ");
+            mensaje.append(habitant.getName()); mensaje.append(" ");
+            mensaje.append(habitant.getSurname()); mensaje.append(" va a votar.");
+            System.out.println(mensaje);
+            mensaje = new StringBuffer("El votante introduce su numero de identif icacion.");
+            System.out.println(mensaje);
+            if (this.existsHabitantById(habitant.getid()) && this.habitantCanVote(habitant)) {
+                mensaje = new StringBuffer("Votante identif icado, id: ");
+                mensaje.append(habitant.getid());
+                System.out.println(mensaje);
+                Set<PoliticalParty> politicalParties = this.getAllPoliticalPartyByProvince(
+                        habitant.getCodeProvince());
+                //Votar: elegir un partido
+                PoliticalParty elected = vote(politicalParties);
+                if (elected != null) {
+                    System.out.println("Ha votado");
+                } else {
+                    System.out.println("No ha votado");
+                }
+                //Almacenar el voto. 
+                //Modif icar el repositorio para que cambie el atributo partidoPolitoco 
+                //de ese habitante
+                if (elected != null){ //es nulo por defecto
+                    this.habitantVotePoliticalParty(elected, habitant);
+                }
+                
+                this.repository.habitantRepository.votingRecord(habitant);
+            }
+        }
+    }
+    
+    private PoliticalParty vote(Set<PoliticalParty> politicalParties) {
+        //Usar un random para votar
+        Integer option = (int) (Math.random() * 10 % politicalParties.size()+2); 
+        //Comprobar que nunca se sale
+        List<PoliticalParty> returnList = new LinkedList<PoliticalParty>(); 
+        //Preguntar si el orden es el que se aniade
+        returnList.add(null); //No vota
+        returnList.add(new PoliticalParty()); //Voto en blanco
+        for (PoliticalParty party: politicalParties) {
+            returnList.add(party);
+        }
+        return returnList.get(option);
+    }
+
+    private Boolean existsHabitantById(String id) {
+        Boolean res = this.repository.habitantRepository.existsId(id);
+        return res;
+    }
+    
+    private Boolean habitantCanVote(Habitant habitant) {
+        Boolean res = habitant.isAdult() && !this.hasAlreadyVotedHabitant(habitant.getid());
+        return res;
+    }
+    
+    private Set<PoliticalParty> getAllPoliticalPartyByProvince(Integer codeProvince) {
+        return this.repository.electionRepository.getAllPoliticalPartyByProvince(codeProvince);
+    }
+    
+    private void habitantVotePoliticalParty(PoliticalParty vote, Habitant habitant) {
+        //Tener en cuenta Null = no ha votado; PartidoPolitico vacio = voto en blanco.
+        //Comprobar que no ha votado previamente, mirando en el repositorio.
+        //Registrarle a ese habitante su voto y meterlo en el repositorio.
+        habitant.setVote(vote);
+    }
+    
+    private Boolean hasAlreadyVotedHabitant(String id) {
+        Boolean res = this.repository.habitantRepository.habitantHasVoted(id); 
+        //false es que no ha votado
+        return res;
+    }
+    
+}

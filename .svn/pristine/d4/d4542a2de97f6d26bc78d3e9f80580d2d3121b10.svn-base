@@ -1,0 +1,7 @@
+package view;
+
+public interface CountingMethod {
+
+	//definir los metodos. Hay que pensarlo
+	
+}

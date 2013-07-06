@@ -1,0 +1,55 @@
+package models;
+
+public class PoliticalParty{
+	
+	private String name;
+    private Integer foundedDate;
+    private String headquarter;
+    private String oid_PoliticalParty;
+    
+    public PoliticalParty(){
+    	this.name = new String();
+    	this.foundedDate = new Integer(0);
+    	this.headquarter = new String();
+    	this.oid_PoliticalParty = new String();
+    }
+    
+    public PoliticalParty(String name, Integer foundedDate, String headquarter, String oid_PoliticalParty){
+    	this.name = name;
+    	this.foundedDate = foundedDate;
+    	this.headquarter = headquarter;
+    	this.oid_PoliticalParty = oid_PoliticalParty;
+    }
+    
+	public String getName() {
+		return name;
+	}
+	
+	public Integer getFounded() {
+		return foundedDate;
+	}
+	
+	public boolean equals(Object o){
+		boolean res = false;
+		if(o instanceof PoliticalParty){
+			PoliticalParty p = (PoliticalParty) o;
+	        res = this.getName().equals(p.getName()) && this.getFounded().equals(p.getFounded());
+		}
+		return res;
+	}
+	
+	public String toString(){
+		String s = "";
+		s = this.getName() + ", (" + this.getFounded() + ")";
+		return s;
+	}
+	
+	public int compareTo(PoliticalParty p){
+		int cmp = 0;
+		cmp = this.getName().compareTo(p.getName());
+		if(cmp==0){
+			cmp = this.getFounded().compareTo(p.getFounded());
+		}
+		return cmp;
+	}
+}

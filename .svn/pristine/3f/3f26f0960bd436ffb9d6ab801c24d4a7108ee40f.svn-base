@@ -1,0 +1,111 @@
+package view;
+
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Set;
+
+import repository.Repository;
+
+import models.Habitant;
+import models.PoliticalParty;
+
+public class VoteUC {
+
+    private Repository repository;
+    private List<Habitant> habitants;
+    
+    public VoteUC(Repository repository) {
+        this.repository = repository;
+        //Aqui cargar los datos del repositorio que sean necesarios inicialmente.
+        this.habitants = repository.habitantRepository.getAllHabitants();
+        //Una vez hecho llamar al metodo makeUserCase() que ejecuta el caso de uso
+        makeUserCase();
+    }
+    
+    public Repository endUserCase() {
+        //devolvemos el repositorio modif icado para usarlo en el otro caso de uso
+        return this.repository;
+    }
+    
+    private void makeUserCase() {
+        //Este metodo es la que va a realizar paso por paso el caso de uso, llamando
+        //a metodos de esta misma clase.
+        
+        for (Habitant habitant:this.habitants) {
+            StringBuffer mensaje = new StringBuffer(); mensaje.append("El votante ");
+            mensaje.append(habitant.getName()); mensaje.append(" ");
+            mensaje.append(habitant.getSurname()); mensaje.append(" va a votar.");
+            System.out.println(mensaje);
+            mensaje = new StringBuffer("El votante introduce su numero de identificacion.");
+            System.out.println(mensaje);
+            
+            if (this.existsHabitantById(habitant.getId())) {
+                mensaje = new StringBuffer("Votante identificado, id: ");
+                mensaje.append(habitant.getId());
+                System.out.println(mensaje);
+                if(this.habitantCanVote(habitant)){
+                	//Seleccionar los partidos politicos
+                	//de la provincia del habitante
+	                Set<PoliticalParty> politicalParties = this.getAllPoliticalPartyByProvince(
+	                        habitant.getCodeProvince());
+	                //Votar: elegir un partido
+	                PoliticalParty elected = vote(politicalParties);
+	                if (elected != null) {
+	                    System.out.println("Ha votado.");
+	                } else {
+	                    System.out.println("No ha votado.");
+	                }
+	                //Almacenar el voto. 
+	                //Modificar el repositorio para que cambie el atributo partidoPolitoco 
+	                //de ese habitante
+	                //if (elected != null){ //es nulo por defecto
+	                    habitant.setVote(elected);
+	                //}
+	                
+	                this.repository.habitantRepository.votingRecord(habitant);
+                }
+                else{
+                	System.out.println("ERROR: El votante no cumple los requisitos para votar.");
+                }
+            }
+            else{
+            	System.out.println("ERROR: El votante no existe.");
+            }
+            System.out.println("---------------");
+        }
+    }
+    
+    private PoliticalParty vote(Set<PoliticalParty> politicalParties) {
+        //Usar un random para votar, se le aniade dos para contemplar 
+    	//las posibilidades de voto nulo y en blanco
+        Integer option = (int) (Math.random() * 10 % (politicalParties.size() + 2)); 
+        //Comprobar que nunca se sale
+        List<PoliticalParty> returnList = new LinkedList<PoliticalParty>(); 
+        //Preguntar si el orden es el que se aniade
+        returnList.add(null); //No vota
+        returnList.add(new PoliticalParty()); //Voto en blanco
+        for (PoliticalParty party: politicalParties) {
+            returnList.add(party);
+        }
+        return returnList.get(option);
+    }
+
+    private Boolean existsHabitantById(String id) {
+        return this.repository.habitantRepository.existsId(id);
+    }
+    
+    private Boolean habitantCanVote(Habitant habitant) {
+        return habitant.isAdult() && !this.hasAlreadyVotedHabitant(habitant.getId());
+    }
+    
+    private Set<PoliticalParty> getAllPoliticalPartyByProvince(Integer codeProvince) {
+        return this.repository.electionRepository.getAllPoliticalPartyByProvince(codeProvince);
+    }
+    
+    private Boolean hasAlreadyVotedHabitant(String id) {
+        Boolean res = this.repository.habitantRepository.habitantHasVoted(id); 
+        //false es que no ha votado
+        return res;
+    }
+    
+}

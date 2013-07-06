@@ -1,0 +1,21 @@
+package repository;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import models.Habitant;
+import models.Province;
+
+public class HabitantResource {
+	
+	private Map<String, Habitant> habitantMap = new HashMap<String, Habitant>();
+	
+	public HabitantResource(){
+		this.initilize();
+	}
+	
+	private void initilize(){
+		//Meter codigo que inicialice el mapa
+	}
+	
+}

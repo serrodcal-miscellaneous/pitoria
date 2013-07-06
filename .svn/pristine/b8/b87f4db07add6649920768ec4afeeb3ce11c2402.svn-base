@@ -1,0 +1,20 @@
+package models;
+
+public class Election{
+
+	private String id; //Clave primaria
+	private Province code; //Clave ajena
+	private PoliticalParty oid_PoliticalParty; //Clave ajena
+	
+	public Election(){
+		this.id = new String();
+		this.code = new Province();
+		this.oid_PoliticalParty = new PoliticalParty();
+	}
+	
+	public Election(String _id, Province _code, PoliticalParty _oid_PartidoPolitico){
+		this.id = _id;
+		this.code = _code;
+		this.oid_PoliticalParty = _oid_PartidoPolitico;
+	}
+}
