@@ -46,7 +46,7 @@ public class ResultElectionUC {
 			System.out.println("Votos de los partidos en la provincia: " + politicalPartiesNumVotes);
 			//Ahora llamar a MethodHont
 			//devolver el resultado
-			DHontMethod method = new DHontMethod();
+			CountingMethod method = new DHontMethod();
 			Map<PoliticalParty, Integer> politicalPartiesResults = method.doResult(politicalPartiesNumVotes, province.getRepresentatives()); //Llamar al metodo que necesitemos
 			//Mostar resultados (sin orden)
 			for(PoliticalParty p : politicalPartiesResults.keySet()){
